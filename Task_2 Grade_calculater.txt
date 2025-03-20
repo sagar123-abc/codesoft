@@ -1,0 +1,95 @@
+import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+public class Main
+{
+    static Scanner sc=new Scanner(System.in);
+    static double calPercentage(int sum, int count)
+    {
+        double avg_percentage = ((double)sum/count);
+        return avg_percentage;
+    }
+    static void marks_board(Map<String,Integer> m)
+    {
+        for (Map.Entry<String, Integer> x : m.entrySet())
+        {
+            System.out.println(x.getKey()+"      : " + x.getValue());
+        }
+    }
+    static String grade_calc(double percentage)
+    {
+        if (percentage >= 90)
+        {
+            return "A+";
+        }
+        else if (percentage >= 80)
+        {
+            return "A";
+        }
+        else if (percentage >= 70)
+        {
+            return "B";
+        }
+        else if (percentage >= 60)
+        {
+            return "C";
+        }
+        else if (percentage >= 50)
+        {
+            return "D";
+        }
+        else
+        {
+            return "F (Fail)";
+        }
+    }
+    public static Map<String, Integer> get_details()
+    {
+         Map<String, Integer> sub = new HashMap<>();
+	    while(true)
+	    {
+	        System.out.print("Enter the Subject_name(press enter to stop) : ");
+	        String subject = sc.nextLine();
+	        
+	        if(subject.isEmpty())
+	        {
+	            break;
+	        }
+	        System.out.print("Enter the obtained score in that Subject out of 100 : ");
+	        int marks = sc.nextInt();
+	        if(marks>100)
+	        {
+	            System.out.println("Enter the valid input Marks should be less than 100 ");
+	            System.out.println("Enter from the starting ");
+	            get_details();
+	        }
+	        sc.nextLine();
+	        System.out.println();
+	        
+	        sub.put(subject,marks);
+	    }
+	    return sub;
+    }
+	public static void main(String[] args) 
+	{
+	   
+	    Map<String , Integer> sub = get_details();
+	    int sum=0;
+	    int count_of_subjects = sub.size();
+	    int total=sub.size()*100;
+	    for(Integer score : sub.values())
+	    {
+	        sum = sum+score;
+	    }
+	    System.out.println("SCORE BOARD");
+	    marks_board(sub);
+	    System.out.println("Your Total Marks Out of "+total + " is "+sum);
+	    System.out.printf("Average Percentage Obtained  %.2f%n",calPercentage(sum,count_of_subjects));
+	    System.out.println("Grade Obtained "+grade_calc(calPercentage(sum,count_of_subjects)));
+	    
+	    
+	    
+	    
+		
+	}
+}

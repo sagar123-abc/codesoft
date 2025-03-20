@@ -1,0 +1,110 @@
+import java.util.Scanner;
+class Bank_account
+{
+	private double balance;
+	public Bank_account(double initialBal)
+	{
+		this.balance = initialBal;
+	}
+	public double getBalance()
+	{
+		return balance;
+	}
+	public void Deposit(double amount)
+	{
+		if(amount>0)
+		{
+			balance += amount;
+			System.out.print("Deposited Successfully. Your balance : "+ balance);
+		}
+		else
+		{
+			System.out.print("Invalid amount ");
+		}
+	}
+	public boolean Withdraw(Double amount)
+	{
+		if (amount > 0 && amount <= balance)
+		{
+			balance -= amount;
+			System.out.println("Withdrawal successful. New balance: " + balance);
+			return true;
+		}
+		else
+		{
+			System.out.println("Insufficient balance or invalid amount.");
+			return false;
+		}
+	}
+}
+class ATM
+{
+    static Scanner sc=new Scanner(System.in);
+    private Bank_account account;
+
+    public ATM(Bank_account account) 
+    {
+        this.account = account;
+    }
+
+    public void start() 
+    {
+        while (true) 
+        {
+            System.out.println("\nATM Menu:");
+            System.out.println("1. Withdraw");
+            System.out.println("2. Deposit");
+            System.out.println("3. Check Balance");
+            System.out.println("4. Exit");
+            System.out.print("Choose an option: ");
+            
+            int choice = sc.nextInt();
+            
+            switch (choice) {
+                case 1:
+                    withdraw();
+                    break;
+                case 2:
+                    deposit();
+                    break;
+                case 3:
+                    checkBalance();
+                    break;
+                case 4:
+                    System.out.println("Thank you for using the ATM. Goodbye!");
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+    //static Bank_account obj = new Bank_account();
+    private void withdraw() 
+    {
+        System.out.print("Enter amount to withdraw: ");
+        double amount = sc.nextDouble();
+        account.Withdraw(amount);
+    }
+
+    private void deposit() 
+    {
+        System.out.print("Enter amount to deposit: ");
+        double amount = sc.nextDouble();
+        account.Deposit(amount);
+    }
+
+    private void checkBalance() {
+        System.out.println("Current balance: " + account.getBalance());
+    }
+}
+public class Main
+{
+    public static void main(String[] args)
+    {
+        System.out.println("Welcome to My ATM ");
+        Bank_account user = new Bank_account(1000);
+        ATM atm = new ATM(user);
+        atm.start();
+        
+    }
+}
